@@ -1,6 +1,6 @@
  
 def  increment_count(v_id) :
- 
+
  
  
 def  mark_for_download(v_id): #if not exists 
@@ -50,17 +50,14 @@ def  get_from_local(v_id) :
 def  get_url(v_id) :
  
 	local = get_from_local(v_id) 
-	if(local == "")  
-	 
+	if local == "":	 
 		glb =  get_from_server(v_id) 
-		if(glb == "") return "" 
-		else 
-		 
+		if glb == "" :
+			return "" 
+		else :		 
 			download_from_internet(v_id,glb) 
-			return get_from_local(v_id) 
-		 
-	 
-	else 
+			return get_from_local(v_id)  
+	else :
 		return local 
  
  
