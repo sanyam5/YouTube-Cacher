@@ -1,0 +1,20 @@
+{
+"name":"YouTube-Cacher",
+"description":"Cache the most frequently watched videos on your local machine/local network to save Internet Data.",
+"version":"1",
+"browser_action": {
+    "default_icon": "icons/icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Click here!"
+  },
+  "permissions": [
+    "activeTab"
+  ],
+"manifest_version":2,
+"content_scripts": [
+    {
+      "matches": ["http://www.youtube.com/*","https://www.youtube.com/*"],
+      "js": ["background.js"]
+    }
+  ]
+}
