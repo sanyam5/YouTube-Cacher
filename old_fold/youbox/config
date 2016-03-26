@@ -1,7 +1,0 @@
-
-
-# The central server is where YouBox will inform about the addition and deletions.
-CentralServer http://cse.iitkgp.ac.in/~sanyama/
-
-# The CacheThresholds specifies the number of times a video is watched before it is cached locally
-CacheThreshold 10

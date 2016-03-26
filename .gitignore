@@ -1,0 +1,4 @@
+downloads/
+*.sqlite3
+*.pyc
+*.swp
