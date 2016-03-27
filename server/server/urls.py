@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^bookkeeper/', include('bookkeeper.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^streamer/', include('streamer.urls')),
 ]

@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.db.models import Count
 from server import constants
+from sets import Set
 
 # Create your models here.
 @python_2_unicode_compatible
@@ -30,10 +31,10 @@ class Request(models.Model):
         days_ago = today - timezone.timedelta(days=days) 
         requests = Request.objects.filter(req_time__gte = days_ago)
         frequencies = requests.values('video').annotate(freq = Count('video'))
-        frequencies = {elem['video']:elem['freq'] for elem in frequencies if elem['freq'] > constants.MIN_FREQ} 
+        frequencies = {elem['video']:elem['freq'] for elem in frequencies if elem['freq'] >= constants.MIN_FREQ} 
         most_frequent = sorted(frequencies, key=frequencies.get, reverse=True)
         most_frequent = most_frequent[:num]
-        return most_frequent
+        return Set(most_frequent)
 
 
 
@@ -51,11 +52,14 @@ class Location(models.Model):
     video = models.ForeignKey(Video,on_delete=models.CASCADE)
     on_localhost = models.CharField(max_length = 200)
     on_network =  models.CharField(max_length = 200)
+    class Meta:
+        unique_together = ('video',)
     def __str__(self):
         return "Video %s located at %s and %s"%(self.video, self.on_localhost, self.on_network)
     @staticmethod
     def get_local():
          local = Location.objects.exclude(on_localhost__isnull=True).exclude(on_localhost='').values('video')
-         return local 
+         local = [elem['video'] for elem in local]
+         return Set(local) 
 
 
