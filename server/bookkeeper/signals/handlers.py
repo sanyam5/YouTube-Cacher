@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save 
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from bookkeeper.models import Video, Request, Location, Download
 from django.db.models import Count
@@ -10,7 +10,7 @@ from server import constants
 
 DOWNLOAD_DIR = constants.DOWNLOAD_DIR
 
-ydl = youtube_dl.YoutubeDL({'outtmpl': DOWNLOAD_DIR + "/%(title)s-%(id)s.%(ext)s"}) 
+ydl = youtube_dl.YoutubeDL({'outtmpl': DOWNLOAD_DIR + "/%(title)s-%(id)s.%(ext)s"})
 @receiver(post_save, sender=Request)
 def downloader(sender, **kwargs):
     def downloadthread():
@@ -33,10 +33,11 @@ def downloader(sender, **kwargs):
                         full_file_name = DOWNLOAD_DIR + "/" + file
                         if (os.path.isfile(full_file_name)) and (video.video_id in full_file_name) and (not full_file_name.endswith("part")):
                             print "Successfully downloaded %s"%(video)
-                            l = Location(video=video, on_localhost=file)
+                            l = Location.objects.get_or_create(video=video)
+                            l.on_localhost=file
                             l.save()
                             success = True
-                            break 
+                            break
                     if not success:
                         print "Failed to download %s. The retcode is %d"%(video, code)
                 except Exception as e:

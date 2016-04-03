@@ -26,8 +26,11 @@ SECRET_KEY = 'rbic1-(&gepef!(fya2uyw*dt38gfct!r*mv@&n55!t#dquhl6'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+# SECURE_PROXY_SSL_HEADER = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# X_FRAME_OPTIONS = 'DENY'
 # Application definition
 
 INSTALLED_APPS = [

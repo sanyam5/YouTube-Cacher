@@ -45,11 +45,9 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function setpage(){
-    requester = "chrome_plugin_0.1";
-    replace_player("http://localhost:8000/streamer/www.youtube.com/"+"qBjsc4k1Dvg");
+function setpage(url){
+    replace_player(url);
 }
-setpage();
 
 function getCurrentTabUrl(callback) {
   var queryInfo = {
@@ -69,8 +67,14 @@ function getCurrentTabUrl(callback) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     //here we get the new
 
-    console.log("URL CHANGED: " + request.data.url);
-    setTimeout(setpage, 2000); //TODO: bind setpage to some event rather than a timeout, such that it is ensured that page has loaded fully.
+    // console.log("URL CHANGED: " + request.data.url);
+    chrome.runtime.sendMessage({type: "check", video_url:request.data.url}, function(response) {
+    if (response.url != '')
+        // alert("got response " + response.url);
+        setTimeout(function(){
+            setpage(response.url);
+        }, 2000); //TODO: bind setpage to some event rather than a timeout, such that it is ensured that page has loaded fully.
+    });
 
 });
 

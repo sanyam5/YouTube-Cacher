@@ -1,8 +1,4 @@
 //Listen for when a Tab changes state
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:8000/bookkeeper/request?par=0", true);
-xhr.send();
-var result = xhr.responseText;
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     if(changeInfo && changeInfo.status == "complete"){
         console.log("Tab updated: " + tab.url);
@@ -13,3 +9,18 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 
     }
 });
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.type == "check")
+    {
+        // alert("requesting for" + request.video_url);
+        $.get("http://localhost:8000/bookkeeper/request",{video_url:request.video_url, requester:"plugin"}, function (data){
+            // alert("got reply from django");
+            if(data.ok==true && data.available==true)
+                sendResponse({url: data.url});
+            else
+                sendResponse({url: ''});
+        });
+    }
+    return true;
+  });
