@@ -4,11 +4,11 @@
     "version": "0.1",
     "background": {
         "persistent":true,
-        "page":"bg.html"
+        "page":"main.html"
     },
     "content_scripts": [{
             "matches": ["https://www.youtube.com/*", "http://www.youtube.com/*"],
-            "js": ["background.js"]
+            "js": ["content.js"]
         }
     ],
     "permissions": [
