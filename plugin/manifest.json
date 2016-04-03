@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Youtube Cacher",
+    "version": "0.1",
+    "background": {
+        "persistent":true,
+        "page":"bg.html"
+    },
+    "content_scripts": [{
+            "matches": ["https://www.youtube.com/*", "http://www.youtube.com/*"],
+            "js": ["background.js"]
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "https://www.youtube.com/*",
+        "http://www.youtube.com/*",
+        "http://localhost:8000/*"
+    ]
+}
