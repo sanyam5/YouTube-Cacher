@@ -9,6 +9,7 @@ Install Instructions
 ======================
 
 Installing the server
+
 (might require sudo)
 ```
 pip install django 
@@ -18,7 +19,9 @@ python manage.py migrate
 ```
 
 Installing the plugin
+
 ***Only for chrome now***
+
 Enable the "Developer mode" in Chrome and then load the plugin for it from `.plugin/chrome` directory
 
 Running the server
