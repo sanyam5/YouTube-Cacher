@@ -14,7 +14,8 @@ Installing the server
 ```
 pip install django 
 pip install youtube-dl
-cd server
+git clone https://github.com/sanyam5/YouTube-Cacher.git
+cd YouTube-Cacher/server
 python manage.py migrate
 ```
 
@@ -26,8 +27,8 @@ Enable the "Developer mode" in Chrome and then load the plugin for it from `.plu
 
 Running the server
 ==================
+Now go to the YouTube-Cacher/server directory and run 
 ```
-cd server
 python manage.py runserver
 ```
 
